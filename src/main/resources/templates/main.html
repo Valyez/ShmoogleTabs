@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>main</title>
+</head>
+<body>
+<form action="/main" method="post">
+    <input type="text" name="address" placeholder="address">
+    <input type="text" name="formula" placeholder="formula">
+    <button type="submit">Save</button>
+</form>
+<div class="content" id="table"></div>
+<div class="text-red" id="exceptions" th:text="${exception}" ></div>
+<script type="text/javascript" th:src="@{/js/tableScript.js}"></script>
+<link rel="stylesheet" th:href="@{/css/table.css}">
+</body>
+</html>
