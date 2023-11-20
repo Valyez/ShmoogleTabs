@@ -57,7 +57,7 @@ public class Page {
         if (lexemes == null) {
             throw new RuntimeException("ERROR! Sell " + cell.getAddress() + " is empty");
         }
-        if (lexemes.size() > 1 && lexemes.get(0).getType() != LexemeType.EQUALS || lexemes.size() == 1 && lexemes.get(0).getType() != LexemeType.NUMBER) {
+        if (lexemes.size() > 2 && lexemes.get(0).getType() != LexemeType.EQUALS ){
             throw new RuntimeException("ERROR! Incorrect formula, you may have missed '='");
         }
         int pos = 0;
@@ -114,6 +114,9 @@ public class Page {
                 case PLUS -> numbers.add(one + two);
                 case MINUS -> numbers.add(one - two);
             }
+        }
+        if (operations.empty() && numbers.size() != 1) {
+            throw new RuntimeException("ERROR! Incorrect formula, you may have missed the  arithmetical sign");
         }
         usedCells.remove(cell);
         return numbers.pop();

@@ -2,8 +2,6 @@ package org.example;
 
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-
 @Component
 public class Data {
     private Page page;
@@ -18,7 +16,6 @@ public class Data {
                 Cell cell = page.getCell(i, j);
                 if (cell.getLexemes() != null) {
                     cell.setInteger(String.valueOf(page.calculateCell(cell)));
-                    page.usedCells = new HashSet<>();
                 }
             }
         }

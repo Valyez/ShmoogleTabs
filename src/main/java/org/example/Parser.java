@@ -14,7 +14,15 @@ public class Parser {
             char c = primalText.charAt(pos);
             switch (c) {
                 case '=' -> result.add(new Lexeme(LexemeType.EQUALS, "="));
-                case '-' -> result.add(new Lexeme(LexemeType.MINUS, "-"));
+                case '-' -> {
+                    if(!(result.isEmpty()) && (result.get(result.size() - 1).getType() == LexemeType.NUMBER ||  result.get(result.size() - 1).getType() == LexemeType.LINK)){
+                        result.add(new Lexeme(LexemeType.MINUS, "-"));
+                    }else {
+                        result.add( new Lexeme(LexemeType.EQUALS, "="));
+                        result.add(new Lexeme(LexemeType.NUMBER, "-1"));
+                        result.add(new Lexeme(LexemeType.MULTIPLY, "*"));
+                    }
+                }
                 case '+' -> result.add(new Lexeme(LexemeType.PLUS, "+"));
                 case '*' -> result.add(new Lexeme(LexemeType.MULTIPLY, "*"));
                 case '/' -> result.add(new Lexeme(LexemeType.DIVIDE, "/"));
@@ -56,7 +64,6 @@ public class Parser {
         }
         return result;
     }
-
 }
 
 enum LexemeType {
@@ -64,12 +71,12 @@ enum LexemeType {
     MULTIPLY, DIVIDE,
     PLUS, MINUS,
     NUMBER, LINK,
-    EQUALS
+    EQUALS,
 
 }
 
 final class Lexeme {
-    private final LexemeType type;
+    private LexemeType type;
     private final String value;
     private final int rate;
 
@@ -87,6 +94,9 @@ final class Lexeme {
     public LexemeType getType() {
         return type;
     }
+    public void setType(LexemeType type) {
+        this.type = type;
+    }
 
     public String getValue() {
         return value;
@@ -103,5 +113,6 @@ final class Lexeme {
                 ", value='" + value + '\'' +
                 '}';
     }
+
 }
 
